@@ -1,7 +1,7 @@
 {
   "name": "tim-table",
   "version": "1.0.0",
-  "description": "This library override the native react-table-next",
+  "description": "This library override the native react-table-next by adding others features",
   "main": "dist/cjs/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
