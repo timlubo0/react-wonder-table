@@ -1,37 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import './Actions.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Icon from '@mdi/react';
-import { mdiInformation, mdiPencilBoxOutline, mdiDelete } from '@mdi/js';
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import DeleteModal from "./DeleteModal";
-
-interface ActionsProps{
+export interface ActionsProps{
     route?: string; 
-    key?: string;
-    handleDelete?: () => void,
+    keyField?: string;
+    handleDelete?: () => void;
+    formatter?: (row: any) => any;
+    row?: any;
 }
 
-interface Actions{
-    details: any;
-    edit: any;
-    remove: any;
-}
+function Actions({ route, keyField, formatter, row }: ActionsProps){
 
-const Actions = ({ route, key, handleDelete }: ActionsProps): Actions => {
+    const keyValue = keyField ? row[keyField] : '';
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const actions = {
-        details: <Router><Link to={`/${route}/${key}`} className="btn btn-primary"><Icon path={mdiInformation} size={1}/></Link></Router>,
-        edit: <Router><Link to={`/${route}/${key}`} className="btn btn-warning"><Icon path={mdiPencilBoxOutline} size={1}/></Link></Router>,
-        remove: <Router>
-                <Link onClick={() => setIsModalOpen(true)} to={`#`} className="btn btn-danger"><Icon path={mdiDelete} size={1}/></Link>
-                <DeleteModal show={isModalOpen} handleConfirm={() => handleDelete} handleClose={() => setIsModalOpen(false)} />
-            </Router>
+    let actions = {
+        details: <a href={`/${route}/${keyValue}`} className="btn btn-primary">Details</a>,
+        edit: <a href={`/${route}/edit/${keyValue}`} className="btn btn-warning">Edit</a>,
+        remove: <a onClick={() => console.log("")} href={`#`} className="btn btn-danger">Remove</a>
     };
 
-    return actions;
+    if (formatter) {
+        actions = { ...actions, ...formatter(row) };
+    }
+
+    const { details, edit, remove } = actions;
+
+    return(
+        <>
+            { details }
+            { edit }
+            { remove }
+        </>
+    );
 }
 
 export default Actions;

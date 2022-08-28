@@ -4,26 +4,27 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import Actions from './Actions/Actions';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter'; 
+import Actions, { ActionsProps } from './Actions/Actions';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 
 function Table({ columns, data, keyField = 'id', actions, pagination, select }: TableProps){
 
     if(actions){
 
         columns = [...columns, ...[{text: 'Actions', dataField: 'actions'}]];
-        columns = columns.map((column) => { 
-
-            if(column.filterable){
-                return { ...column, filter: textFilter() };
-            }else{
-                return column;
-            }
-
-        });
         data = addActions(data, actions);
         
     }
+
+    columns = columns.map((column) => { 
+
+        if(column.filterable){
+            return { ...column, filter: textFilter() };
+        }else{
+            return column;
+        }
+
+    });
 
     pagination = pagination ? pagination : { hidePageListOnlyOnePage: true, hideSizePerPage: true };
     let selectRow: any;
@@ -48,33 +49,13 @@ function Table({ columns, data, keyField = 'id', actions, pagination, select }: 
 const addActions = (data: Array<any>, actions: ActionsProps) => {
     data = data.map((row) => {
 
-        let baseActions = Actions({ route: actions.route, key: row.id });
-
-        if(actions){
-            baseActions = actions.formatter ? { ...baseActions, ...actions.formatter(row) } : baseActions;
-        }
-
-        const { details, edit, remove } = baseActions;
-
         return {
             ...row, 
-            actions: <>
-                { details }
-                { edit }
-                { remove }
-            </>
+            actions: <Actions route={actions.route} row={row} keyField={actions.keyField} formatter={actions.formatter} />
         };
     });
 
     return data;
-}
-
-
-interface ActionsProps{
-    route: string; 
-    key?: string;
-    handleDelete?: () => void;
-    formatter?: (row: any) => any
 }
 
 export interface TableProps {

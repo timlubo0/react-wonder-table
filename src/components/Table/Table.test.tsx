@@ -5,7 +5,7 @@ import Table from "./Table";
 
 describe("Button", () => {
   test("renders the Button component", () => {
-    render(<Table columns={columns} data={data} />);
+    render(<Table columns={columns} data={data} actions={actions} />);
   });
 });
 
@@ -23,3 +23,8 @@ const data = [
     name: 'Tim Lubo'
   }
 ];
+
+const actions = {
+  route: 'action_url',
+  keyField: 'id'
+};

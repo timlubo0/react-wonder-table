@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Table from "./Table";
+import { ActionsProps } from "./Actions/Actions";
 
 export default {
   title: "ReactComponentLibrary/Table",
@@ -29,8 +30,9 @@ const data = [
     },
 ];
 
-const actions = {
-    route: 'action_url',
+const actions: ActionsProps = {
+  route: 'users',
+  keyField: 'id',
 };
 
 const pagination = {

@@ -3,10 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 interface modalProps{
-    show: boolean;
-    handleConfirm: () => void;
-    handleClose: () => void;
-    text?: {title?: string, description?: string, close?: string, confirm?: string}
+  show: boolean;
+  handleConfirm: () => void;
+  handleClose: () => void;
+  text?: {title?: string, description?: string, close?: string, confirm?: string}
 }
 
 function DeleteModal({ show, handleConfirm, handleClose, text }: modalProps) {
