@@ -1,9 +1,9 @@
 {
-  "name": "@timlubo0/react-magic-table",
+  "name": "@timlubo0/react-wonder-table",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/timlubo0"
   },
-  "version": "1.0.21",
+  "version": "1.0.1",
   "description": "The magic table extend react-bootstrap-table-next by adding others features",
   "main": "dist/cjs/index.js",
   "scripts": {
